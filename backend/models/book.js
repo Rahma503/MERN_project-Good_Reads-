@@ -1,6 +1,9 @@
-const mongoose = require("mongoose");
-const book = new mongoose.Schema({
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  url: { type: String, required: true },
+import { Schema, model } from "mongoose";
+
+const bookSchema = new Schema({
+  title: String,
+  author: String,
+  price: Number,
 });
+
+export default model("Book", bookSchema);
