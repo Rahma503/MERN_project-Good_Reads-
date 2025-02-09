@@ -23,6 +23,7 @@ import UserOrderHistory from "./components/Profile/UserOrderHistory";
 import Settings from "./components/Profile/Settings";
 import BookManagement from "./components/Profile/BookManagement/BookManagement";
 import PaymentPage from "./pages/checkout/PaymentPage";
+import AllOrders from "./pages/AllOrders";
 
 const Home = lazy(() => import("./pages/Home"));
 const AllBooks = lazy(() => import("./pages/AllBooks"));
@@ -73,7 +74,7 @@ function App() {
                 <Route path="/profile/orderHistory" element={<UserOrderHistory/>}/>
                 <Route path="/profile/settings" element={<Settings/>}/>
                 <Route path="/profile/book-management" element={<BookManagement />} />
-
+                <Rout path="/profile/allOrders" element={<AllOrders/>}/>
                 <Route/>
               </Route>
               <Route path="/add-book" element={<AddBook />} />
