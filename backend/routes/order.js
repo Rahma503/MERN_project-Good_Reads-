@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { authToken } = require('../middleWare/userAuth');
-const { authToken } = require('../middleWare/userAuth');
 const Book = require('../models/book.js');
 const Order = require('../models/orders.js');
 const User = require('../models/user.js');
@@ -54,23 +53,28 @@ router.get('/get-order-history', authToken, async (req, res) => {
         const id = req.body;
         const userData = await User.findById(id).populate(
            "Book").populate("orders");
-    try {
-        const { id } = req.headers;
-        const userData = await User.findById(id).populate({
-            path: 'orders',
-            populate: { path: 'books' }
-        });
+        try {
+            const { id } = req.headers;
+            const userData = await User.findById(id).populate({
+                path: 'orders',
+                populate: { path: 'books' }
+            });
 
-        const ordersData = userData.orders.reverse();
+            const ordersData = userData.orders.reverse();
 
-        return res.json({
-            status: 'success',
-            data: ordersData
-        });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'An error occurred' });
+            return res.json({
+                status: 'success',
+                data: ordersData
+            });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'An error occurred' });
+        }
     }
+    catch(err){
+        console.log(err);
+        res.status(500).json({msg: "Internal server error"});
+    }   
 });
 
 // Get all orders -- admin
