@@ -77,7 +77,7 @@ export default function ReadBook() {
 
   // Extract file ID from Google Drive link
   const driveLink = book.fullContent;
-  const fileId = driveLink.match(/\/file\/d\/([^\/?]+)/)?.[1]; 
+  const fileId = driveLink.match(/\/file\/d\/([^\/?]+)/)?.[1];
   const embedUrl = fileId
     ? `https://drive.google.com/file/d/${fileId}/preview`
     : null;

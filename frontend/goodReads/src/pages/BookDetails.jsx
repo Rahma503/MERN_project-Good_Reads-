@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,7 +24,9 @@ export default function BookDetails() {
   const [loading, setLoading] = useState(true);
   const [newRating, setNewRating] = useState(0);
   const [newReview, setNewReview] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userId = useSelector((state) => state.auth.userId);
   const userId = useSelector((state) => state.auth.userId);
   const role = useSelector((state) => state.auth.role);
 
@@ -53,7 +56,8 @@ export default function BookDetails() {
     };
 
     fetchBookDetails();
-  }, [id]);
+    checkSubscription();
+  }, [id, isLoggedIn, userId]);
 
   const handleSubscription = async () => {
     if (!isLoggedIn) {
@@ -109,6 +113,7 @@ export default function BookDetails() {
           transition: Bounce,
         });
         navigate("/allbooks");
+        navigate("/allbooks");
       }
     } catch (error) {
       toast.error(error.response.data.msg, {
@@ -125,9 +130,11 @@ export default function BookDetails() {
     }
   };
 
+
   const handleAddReview = async () => {
     try {
       axios.defaults.withCredentials = true;
+      await axios.post(`http://localhost:3000/api/books/${id}/rate`, {
       await axios.post(`http://localhost:3000/api/books/${id}/rate`, {
         ratingValue: newRating,
         review: newReview,
@@ -292,6 +299,8 @@ export default function BookDetails() {
           )}
         </div>
       </div>
+      </div>
     </div>
   );
 }
+

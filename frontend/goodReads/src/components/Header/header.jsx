@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo3.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { useCart } from "../../context/CartContext";
 import "../Header/header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -27,6 +28,8 @@ export default function Header() {
   const navigate = useNavigate();
   const { favorites } = useFavorites();
   const dispatch = useDispatch();
+
+  const { cart } = useCart();
 
   const links = [
     { title: "Home", link: "/" },
